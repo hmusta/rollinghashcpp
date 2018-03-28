@@ -6,8 +6,7 @@
 #include <sys/types.h>
 
 
-class ZTimer
-{
+class ZTimer {
 public:
     struct timeval t1, t2;
 public:
@@ -20,8 +19,8 @@ public:
         t2 = t1;
     }
     int elapsed() {
-        return static_cast<int>(((t2.tv_sec - t1.tv_sec) * 1000) + ((t2.tv_usec - t1.
-                tv_usec) / 1000));
+        return static_cast<int>(((t2.tv_sec - t1.tv_sec) * 1000)
+                                    + ((t2.tv_usec - t1.tv_usec) / 1000));
     }
     int split() {
         gettimeofday(&t2,0);
@@ -30,4 +29,3 @@ public:
 };
 
 #endif
-

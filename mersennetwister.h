@@ -209,7 +209,9 @@ double MTRand::randDblExc( const double& n )
 double MTRand::rand53()
 {
     uint32 a = randInt() >> 5, b = randInt() >> 6;
-    return ( static_cast<double>(a) * 67108864.0 + static_cast<double>(b) ) * (1.0/9007199254740992.0);  // by Isaku Wada
+    // by Isaku Wada
+    return static_cast<double>(static_cast<unsigned long long>(a) * 67108864 + b)
+            / 9007199254740992.0;
 }
 
 double MTRand::randNorm( const double& mean, const double& variance )

@@ -53,7 +53,7 @@ public:
                 hashvalues[k] = static_cast<hashvaluetype>(randomgenerator());
         } else if (sizeof(hashvaluetype) == 8) {
             mersenneRNG randomgenerator(static_cast<uint32>(maxval>>32));
-            mersenneRNG randomgeneratorbase(static_cast<uint32>((maxval>>32) ==0 ? maxval : 0xFFFFFFFFU));
+            mersenneRNG randomgeneratorbase((maxval>>32) ==0 ? static_cast<uint32>(maxval) : 0xFFFFFFFFU);
             for(size_t k =0; k<nbrofchars; ++k)
                 hashvalues[k] = static_cast<hashvaluetype>(randomgeneratorbase())
                                 | (static_cast<hashvaluetype>(randomgenerator()) << 32);
@@ -68,7 +68,7 @@ public:
                 hashvalues[k] = static_cast<hashvaluetype>(randomgenerator());
         } else if (sizeof(hashvaluetype) == 8) {
             mersenneRNG randomgenerator(static_cast<uint32>(maxval>>32));
-            mersenneRNG randomgeneratorbase(static_cast<uint32>((maxval>>32) ==0 ? maxval : 0xFFFFFFFFU));
+            mersenneRNG randomgeneratorbase((maxval>>32) ==0 ? static_cast<uint32>(maxval) : 0xFFFFFFFFU);
             randomgenerator.seed(seed1);
             randomgeneratorbase.seed(seed2);
             for(size_t k =0; k<nbrofchars; ++k)
