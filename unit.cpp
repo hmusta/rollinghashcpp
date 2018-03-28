@@ -62,7 +62,7 @@ bool isItAFunction(uint L = 7) {
     for(uint32 k = 0; k<100000; ++k) {
         unsigned char out = s.front();
         s.pop_front();
-        char c (generator()+65);
+        char c = static_cast<char>(generator()+65);
 
         s.push_back(c);
         hf.update(out,c);
@@ -95,7 +95,7 @@ bool doesReverseUpdateWorks(uint L = 7) {
     for(uint32 k = 0; k<100000; ++k) {
         unsigned char out = s.front();
         s.pop_front();
-        char c (generator()+65);
+        char c = static_cast<char>(generator()+65);
         s.push_back(c);
         hf.update(out,c);
         hf.reverse_update(out,c);

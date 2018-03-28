@@ -209,7 +209,7 @@ double MTRand::randDblExc( const double& n )
 double MTRand::rand53()
 {
     uint32 a = randInt() >> 5, b = randInt() >> 6;
-    return ( a * 67108864.0 + b ) * (1.0/9007199254740992.0);  // by Isaku Wada
+    return ( static_cast<double>(a) * 67108864.0 + static_cast<double>(b) ) * (1.0/9007199254740992.0);  // by Isaku Wada
 }
 
 double MTRand::randNorm( const double& mean, const double& variance )
@@ -276,7 +276,7 @@ void MTRand::seed( uint32 *const bigSeed, const uint32 seedLength )
     initialize(19650218UL);
     int i = 1;
     uint32 j = 0;
-    int k = ( (uint32)N > seedLength ? (uint32)N : seedLength );
+    int k = static_cast<int>( static_cast<uint32>(N) > seedLength ? static_cast<uint32>(N) : seedLength );
     for( ; k; --k )
     {
         state[i] =
@@ -411,7 +411,7 @@ void MTRand::load( uint32 *const loadArray )
     uint32 *la = loadArray;
     int i = N;
     for( ; i--; *s++ = *la++ ) {}
-    left = *la;
+    left = static_cast<int>(*la);
     pNext = &state[N-left];
 }
 

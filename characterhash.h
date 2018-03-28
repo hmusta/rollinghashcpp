@@ -19,7 +19,7 @@ class mersenneRNG {
 public:
     mersenneRNG(uint32 maxval) : mtr(),n(maxval) {};
     uint32 operator()() {
-        return mtr.randInt(n);
+        return static_cast<uint32>(mtr.randInt(n));
     }
     void seed(uint32 seedval) {
         mtr.seed(seedval);
@@ -38,7 +38,7 @@ private:
 template <typename hashvaluetype>
 hashvaluetype maskfnc(int bits) {
     assert(bits>0);
-    assert((size_t)bits<=sizeof(hashvaluetype)*8);
+    assert(static_cast<size_t>(bits)<=sizeof(hashvaluetype)*8);
     hashvaluetype x = static_cast<hashvaluetype>(1) << (bits - 1);
     return x ^ (x - 1);
 }
@@ -48,12 +48,12 @@ class CharacterHash {
 public:
     CharacterHash(hashvaluetype maxval) {
         if(sizeof(hashvaluetype) <=4) {
-            mersenneRNG randomgenerator(maxval);
+            mersenneRNG randomgenerator(static_cast<uint32>(maxval));
             for(size_t k =0; k<nbrofchars; ++k)
                 hashvalues[k] = static_cast<hashvaluetype>(randomgenerator());
         } else if (sizeof(hashvaluetype) == 8) {
-            mersenneRNG randomgenerator(maxval>>32);
-            mersenneRNG randomgeneratorbase((maxval>>32) ==0 ? maxval : 0xFFFFFFFFU);
+            mersenneRNG randomgenerator(static_cast<uint32>(maxval>>32));
+            mersenneRNG randomgeneratorbase(static_cast<uint32>((maxval>>32) ==0 ? maxval : 0xFFFFFFFFU));
             for(size_t k =0; k<nbrofchars; ++k)
                 hashvalues[k] = static_cast<hashvaluetype>(randomgeneratorbase())
                                 | (static_cast<hashvaluetype>(randomgenerator()) << 32);
@@ -62,13 +62,13 @@ public:
 
     CharacterHash(hashvaluetype maxval, uint32 seed1, uint32 seed2) {
         if(sizeof(hashvaluetype) <=4) {
-            mersenneRNG randomgenerator(maxval);
+            mersenneRNG randomgenerator(static_cast<uint32>(maxval));
             randomgenerator.seed(seed1);
             for(size_t k =0; k<nbrofchars; ++k)
                 hashvalues[k] = static_cast<hashvaluetype>(randomgenerator());
         } else if (sizeof(hashvaluetype) == 8) {
-            mersenneRNG randomgenerator(maxval>>32);
-            mersenneRNG randomgeneratorbase((maxval>>32) ==0 ? maxval : 0xFFFFFFFFU);
+            mersenneRNG randomgenerator(static_cast<uint32>(maxval>>32));
+            mersenneRNG randomgeneratorbase(static_cast<uint32>((maxval>>32) ==0 ? maxval : 0xFFFFFFFFU));
             randomgenerator.seed(seed1);
             randomgeneratorbase.seed(seed2);
             for(size_t k =0; k<nbrofchars; ++k)
