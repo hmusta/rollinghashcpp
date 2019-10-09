@@ -1,4 +1,4 @@
-# Randomized rolling hash functions in C++ 
+# Randomized rolling hash functions in C++
 [![Build Status](https://travis-ci.org/lemire/rollinghashcpp.png)](https://travis-ci.org/lemire/rollinghashcpp)
 
 
@@ -16,6 +16,9 @@ This is a set of C++ classes implementing various recursive n-gram hashing techn
 This library is used by [khmer](https://github.com/dib-lab/khmer/): the in-memory nucleotide sequence k-mer engine.
  
 
+These are randomized hash functions, meaning that each time you create a new hasher instance, you will
+get new hash values for a given input.
+
 ##  Code sample
 
         const uint n(3);//hash all sequences of 3 characters
@@ -31,10 +34,11 @@ This library is used by [khmer](https://github.com/dib-lab/khmer/): the in-memor
            chartype out = ...; // character we want to forget
            hf.update(out,c); // update hash value
         }
+        hf.reset(); // you can now hash a new string
 
 
 
-##  Requirements 
+##  Requirements
 
 A recent GNU GCC C++ compiler or a recent CLANG.
 
@@ -54,7 +58,9 @@ then
         ./speedtesting
 
 
+## Nim version
 
+See [Cyclic-Polynomial-Hash](https://github.com/MarcAzar/Cyclic-Polynomial-Hash) for a similar library written in Nim.
 
 ##  References
 
