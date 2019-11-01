@@ -3,9 +3,9 @@
 #
 .SUFFIXES: .cpp .o .c .h
 
-CXXFLAGS =  -std=c++11 -fexceptions -pedantic -ggdb -g3 -O2  -Wall -Woverloaded-virtual  -Wsign-promo -Wold-style-cast 
+CXXFLAGS =  -std=c++11 -fexceptions -pedantic -ggdb -g3 -O2  -Wall -Woverloaded-virtual  -Wsign-promo -Wold-style-cast mersennetwister.o
 #-DNDEBUG
-all: unit speedtesting example example2 example3 example64bits example4 example5 example6
+all: mersennetwister.o unit speedtesting example example2 example3 example64bits example4 example5 example6
 
 SRCS = unit.cpp speedtesting.cpp example.cpp example2.cpp example3.cpp example4.cpp example5.cpp example6.cpp example64bits.cpp
 
@@ -18,7 +18,9 @@ depend:
 clean:
 	rm -f *.o unit speedtesting example example2 example3 example4 example64bits example5 example6
 
-HEADERS=cyclichash.h characterhash.h mersennetwister.h rabinkarphash.h generalhash.h threewisehash.h
+HEADERS=cyclichash.h characterhash.h mersennetwister.h mersennetwister.cpp rabinkarphash.h generalhash.h threewisehash.h
+mersennetwister.o: $(HEADERS)
+	$(CXX) -std=c++11 -fexceptions -pedantic -ggdb -g3 -O2  -Wall -Woverloaded-virtual  -Wsign-promo -Wold-style-cast -c mersennetwister.cpp
 unit.o: $(HEADERS)
 speedtesting.o: $(HEADERS)
 example.o: $(HEADERS)
