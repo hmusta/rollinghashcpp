@@ -46,7 +46,7 @@ hashvaluetype maskfnc(int bits) {
     return x ^ (x - 1);
 }
 
-template <typename hashvaluetype = uint32, typename chartype =  unsigned char>
+template <typename hashvaluetype = uint32, typename chartype =  unsigned char, size_t nbrofchars = 1 << ( sizeof(chartype)*8 )>
 class CharacterHash {
 public:
     CharacterHash(hashvaluetype maxval) {
@@ -80,9 +80,7 @@ public:
         } else throw runtime_error("unsupported hash value type");
     }
 
-    enum {nbrofchars = 1 << ( sizeof(chartype)*8 )};
-
-    hashvaluetype hashvalues[1 << ( sizeof(chartype)*8 )];
+    hashvaluetype hashvalues[nbrofchars];
 };
 
 #endif

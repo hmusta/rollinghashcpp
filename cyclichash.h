@@ -20,7 +20,7 @@
 *           hf.update(out,c); // update hash value
 *        }
 */
-template <typename hashvaluetype = uint32, typename chartype =  unsigned char>
+template <typename hashvaluetype = uint32, typename chartype =  unsigned char, size_t nbrofchars = 1 << ( sizeof(chartype)*8 )>
 class CyclicHash {
 
 public:
@@ -142,7 +142,7 @@ public:
     hashvaluetype hashvalue;
     int n;
     const int wordsize;
-    CharacterHash<hashvaluetype,chartype> hasher;
+    CharacterHash<hashvaluetype,chartype, nbrofchars> hasher;
     const hashvaluetype mask1;
     const int myr;
     const hashvaluetype maskn;
